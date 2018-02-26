@@ -13,7 +13,6 @@ const LoanInfo = ({
 );
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return { common: state.common };
 };
 

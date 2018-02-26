@@ -15,12 +15,10 @@ export const countLoan = ({ term, amount }) => dispatch => (
 );
 
 export default (state = {}, action) => {
-  // console.log(action.type);
   switch (action.type) {
   case ACTION_TYPES.COUNT_LOAN:
     return { ...action.payload };
   default:
-    console.log(action);
     return state;
   }
 };
