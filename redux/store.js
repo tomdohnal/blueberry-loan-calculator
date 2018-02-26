@@ -1,18 +1,34 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
+import axios from 'axios';
+
+import termReducer, { ACTION_TYPES as TERM_ACTION_TYPES } from './modules/term';
+import amountReducer, { ACTION_TYPES as AMOUNT_ACTION_TYPES } from './modules/amount';
+import commonReducer, { ACTION_TYPES as COMMON_ACTION_TYPES } from './modules/common';
+
+export const fetchInitialValues = () => dispatch => axios.get('http://js-developer-second-round.herokuapp.com/api/v1/application/constraints')
+    .then(({ data: { termInterval, amountInterval } }) => {
+      dispatch({ type: TERM_ACTION_TYPES.SET_CONFIG, payload: termInterval });
+      dispatch({ type: AMOUNT_ACTION_TYPES.SET_CONFIG, payload: amountInterval });
+
+      return { term: termInterval.defaultValue, amount: amountInterval.defaultValue };
+    })
+    .then(({ term, amount }) => {
+      return axios.get('https://js-developer-second-round.herokuapp.com/api/v1/application/first-loan-offer', {
+        params: { term, amount },
+      })
+        .then(({ data }) => {
+          dispatch({ type: COMMON_ACTION_TYPES.COUNT_LOAN, payload: data });
+        });
+    });
+
+const appReducer = combineReducers({
+  term: termReducer,
+  amount: amountReducer,
+  common: commonReducer,
+});
 
 const exampleInitialState = {};
 
-
-// REDUCERS
-export const reducer = (state = exampleInitialState, action) => {
-  switch (action.type) {
-  default: return state;
-  }
-};
-
-// ACTIONS
-
-
-export const initStore = (initialState = exampleInitialState) => createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+export const initStore = (initialState = exampleInitialState) => createStore(appReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
