@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 const Offer = ({
-  common: { totalPrincipal, term, totalCostOfCredit, totalRepayableAmount, monthlyPayment },
+  offer: { totalPrincipal, term, totalCostOfCredit, totalRepayableAmount, monthlyPayment },
   className,
 }) => (
   <div className={className}>
@@ -18,6 +18,6 @@ const Offer = ({
   </div>
 );
 
-const mapStateToProps = state => ({ common: state.common });
+const mapStateToProps = state => ({ offer: state.offer });
 
 export default connect(mapStateToProps)(Offer);

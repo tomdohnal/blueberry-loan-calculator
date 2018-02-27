@@ -3,7 +3,7 @@ import Slider from 'rc-slider';
 import { connect } from 'react-redux';
 
 import { setValue } from '../redux/modules/amount';
-import { countLoan } from '../redux/modules/common';
+import { countLoan } from '../redux/modules/offer';
 import { Select } from 'semantic-ui-react';
 
 class AmountField extends Component {

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import termReducer, { ACTION_TYPES as TERM_ACTION_TYPES } from './modules/term';
 import amountReducer, { ACTION_TYPES as AMOUNT_ACTION_TYPES } from './modules/amount';
-import commonReducer, { ACTION_TYPES as COMMON_ACTION_TYPES } from './modules/common';
+import offerReducer, { ACTION_TYPES as OFFER_ACTION_TYPES } from './modules/offer';
 
 export const fetchInitialValues = () => dispatch => axios.get('http://js-developer-second-round.herokuapp.com/api/v1/application/constraints')
     .then(({ data: { termInterval, amountInterval } }) => {
@@ -19,14 +19,14 @@ export const fetchInitialValues = () => dispatch => axios.get('http://js-develop
         params: { term, amount },
       })
         .then(({ data }) => {
-          dispatch({ type: COMMON_ACTION_TYPES.COUNT_LOAN, payload: data });
+          dispatch({ type: OFFER_ACTION_TYPES.COUNT_LOAN, payload: data });
         });
     });
 
 const appReducer = combineReducers({
   term: termReducer,
   amount: amountReducer,
-  common: commonReducer,
+  offer: offerReducer,
 });
 
 const exampleInitialState = {};

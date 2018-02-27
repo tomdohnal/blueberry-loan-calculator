@@ -1,7 +1,7 @@
 import axios from 'axios/index';
 
 export const ACTION_TYPES = {
-  COUNT_LOAN: 'COMMON.COUNT_LOAN',
+  COUNT_LOAN: 'OFFER.COUNT_LOAN',
 };
 
 export const countLoan = ({ term, amount }) => dispatch => (
