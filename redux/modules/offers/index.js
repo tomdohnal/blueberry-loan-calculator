@@ -10,6 +10,12 @@ export const getOffer = () => (dispatch, getState) => {
   const termValue = state.term.value || state.term.defaultValue;
   const amountValue = state.amount.value || state.amount.defaultValue;
 
+  const matchingOffer = state.offers.find(({ term, totalPrincipal }) => (
+    Number(term) === termValue && Number(totalPrincipal) === amountValue
+  ));
+
+  if (matchingOffer) return;
+
   return api.get('/real-first-loan-offer', {
     params: { term: termValue, amount: amountValue },
   })
