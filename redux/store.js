@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import { api } from '../lib';
 import termReducer, { ACTION_TYPES as TERM_ACTION_TYPES } from './modules/term';
 import amountReducer, { ACTION_TYPES as AMOUNT_ACTION_TYPES } from './modules/amount';
-import offerReducer, { ACTION_TYPES as OFFER_ACTION_TYPES } from './modules/offer';
+import offersReducer, { ACTION_TYPES as OFFERS_ACTION_TYPES } from './modules/offers';
 
 export const fetchInitialValues = () => dispatch => api.get('/constraints')
     .then(({ data: { termInterval, amountInterval } }) => {
@@ -19,14 +19,14 @@ export const fetchInitialValues = () => dispatch => api.get('/constraints')
         params: { term, amount },
       })
         .then(({ data }) => {
-          dispatch({ type: OFFER_ACTION_TYPES.COUNT_LOAN, payload: data });
+          dispatch({ type: OFFERS_ACTION_TYPES.ADD_OFFER, payload: data });
         });
     });
 
 const appReducer = combineReducers({
   term: termReducer,
   amount: amountReducer,
-  offer: offerReducer,
+  offers: offersReducer,
 });
 
 const exampleInitialState = {};

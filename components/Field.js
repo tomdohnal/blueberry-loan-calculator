@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Slider from 'rc-slider';
 import { connect } from 'react-redux';
 
-import { countLoan } from '../redux/modules/offer';
 import { Select } from 'semantic-ui-react';
+import { getOffer } from '../redux/modules/offers';
 
-class AmountField extends Component {
+class Field extends Component {
   updateCalculator = (newValue) => {
     this.props.onValueChange(newValue);
-    this.props.countLoan();
+    this.props.getOffer();
   };
 
   onSliderChange = (value) => {
@@ -68,4 +68,4 @@ class AmountField extends Component {
 }
 
 
-export default connect(null, { countLoan })(AmountField);
+export default connect(null, { getOffer })(Field);
