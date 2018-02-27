@@ -9,7 +9,7 @@ const Offer = ({
     <h3>Term:&nbsp;{term}</h3>
     <h3>Total cost of credit:&nbsp;{totalCostOfCredit}</h3>
     <h3>Total repayable amount:&nbsp;{totalRepayableAmount}</h3>
-    <h3>Monthly payment:&nbsp;{monthlyPayment}</h3>
+    <h3>Monthly payment:&nbsp;{monthlyPayment.toFixed(2)}</h3>
     <style jsx>{`
       h3 {
         margin: 12px 0;

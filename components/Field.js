@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import Slider from 'rc-slider';
 import { connect } from 'react-redux';
 
-import { setValue } from '../redux/modules/amount';
 import { countLoan } from '../redux/modules/offer';
 import { Select } from 'semantic-ui-react';
 
 class AmountField extends Component {
-  updateCalculator = (newAmountValue) => {
-    this.props.setValue(newAmountValue);
-    this.props.countLoan({
-      amount: newAmountValue,
-      term: this.props.term.value || this.props.term.defaultValue,
-    });
+  updateCalculator = (newValue) => {
+    this.props.onValueChange(newValue);
+    this.props.countLoan();
   };
 
   onSliderChange = (value) => {
@@ -24,12 +20,12 @@ class AmountField extends Component {
   };
 
   render() {
-    const { min, max, step, value, defaultValue } = this.props.amount;
+    const { header, min, max, step, value, defaultValue } = this.props;
 
     return (
       <div className="field">
         <div className="slider-labels">
-          <h3>Amount</h3>
+          <h3>{header}</h3>
           <Select
             value={value || defaultValue}
             options={
@@ -71,6 +67,5 @@ class AmountField extends Component {
   }
 }
 
-const mapStateToProps = ({ amount, term }) => ({ amount, term });
 
-export default connect(mapStateToProps, { setValue, countLoan })(AmountField);
+export default connect(null, { countLoan })(AmountField);
