@@ -4,8 +4,9 @@ import { Container, Header } from 'semantic-ui-react';
 
 import TermField from '../components/TermField';
 import AmountField from '../components/AmountField';
-import LoanInfo from '../components/LoanInfo';
+import Offer from '../components/Offer';
 import { fetchInitialValues, initStore } from '../redux/store';
+import { resolveScopedStyles } from '../lib';
 
 class App extends Component {
   static async getInitialProps({ store }) {
@@ -13,14 +14,24 @@ class App extends Component {
   }
 
   render() {
+    const scoped = resolveScopedStyles(
+      <scope>
+        <style jsx>{`
+          .container { margin-top: 36px }
+          .offer { margin-top: 24px }
+        `}</style>
+      </scope>,
+    );
+
     return (
       <div>
-        <Container className="mt-2">
-          <Header>Blueberry Loan Calculator</Header>
+        <Container className={scoped.className}>
+          <Header><h1>Blueberry Loan Calculator</h1></Header>
           <TermField />
           <AmountField />
-          <LoanInfo />
+          <Offer className={`offer ${scoped.className}`} />
         </Container>
+        {scoped.styles}
       </div>
     );
   }

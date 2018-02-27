@@ -27,23 +27,22 @@ class AmountField extends Component {
     const { min, max, step, value, defaultValue } = this.props.amount;
 
     return (
-      <div>
-        <h3>Amount</h3>
-        <strong>Min: {min}</strong>
-        <strong>Current: {value || defaultValue}</strong>
-        <strong>Max: {max}</strong>
-        <Select
-          value={value || defaultValue}
-          options={
+      <div className="field">
+        <div className="slider-labels">
+          <h3>Amount</h3>
+          <Select
+            value={value || defaultValue}
+            options={
               Array.from({ length: ((max - min) / step) + 1}, (_, index) => ({
-                text: ((index) * step) + min,
-                value: ((index) * step) + min,
-                key: ((index) * step) + min,
-              }
-            ))
-          }
-          onChange={this.onSelectChange}
-        />
+                  text: ((index) * step) + min,
+                  value: ((index) * step) + min,
+                  key: ((index) * step) + min,
+                }
+              ))
+            }
+            onChange={this.onSelectChange}
+          />
+        </div>
         <Slider
           min={min}
           max={max}
@@ -51,6 +50,22 @@ class AmountField extends Component {
           value={value || defaultValue}
           onChange={this.onSliderChange}
         />
+        <div className="slider-labels">
+          <span><strong>Min:&nbsp;</strong>{min}</span>
+          <span><strong>Max:&nbsp;</strong>{max}</span>
+        </div>
+        <style jsx>{`
+          .field {
+            margin-top: 24px;
+          }
+          h3 {
+            margin: 12px 0 0 0;
+          }
+          .slider-labels {
+            display: flex;
+            justify-content: space-between;
+          }
+        `}</style>
       </div>
     );
   }
