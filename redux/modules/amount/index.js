@@ -1,20 +1,13 @@
+import { createFieldReducer, createFieldValueSetter } from '../lib';
+
 export const ACTION_TYPES = {
   SET_VALUE: 'AMOUNT.SET_VALUE',
   SET_CONFIG: 'AMOUNT.SET_CONFIG',
 };
 
-export const setValue = value => ({
-  type: ACTION_TYPES.SET_VALUE,
-  payload: value,
-});
+export const setValue = createFieldValueSetter({ ACTION_TYPE: ACTION_TYPES.SET_VALUE });
 
-export default (state = {}, action) => {
-  switch (action.type) {
-  case ACTION_TYPES.SET_VALUE:
-    return { ...state, value: action.payload };
-  case ACTION_TYPES.SET_CONFIG:
-    return { ...action.payload };
-  default:
-    return state;
-  }
-};
+export default createFieldReducer({
+  SET_VALUE_ACTION_TYPE: ACTION_TYPES.SET_VALUE,
+  SET_CONFIG_ACTION_TYPE: ACTION_TYPES.SET_CONFIG,
+});
